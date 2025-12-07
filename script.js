@@ -80,6 +80,8 @@ const resultProduct = document.getElementById("result-product");
 const buyBtn1 = document.getElementById("buy-btn-1");
 const buyBtn2 = document.getElementById("buy-btn-2");
 
+const questionBox = document.getElementById("question-box");
+const mainTitle = document.getElementById("main-title");
 let currentIndex = 0; // 현재 몇 번째 질문인지
 
 // 초기 렌더
@@ -161,8 +163,9 @@ function showResult() {
         buyBtn2.classList.add("hidden");
     }
 
-    // 결과 영역 보이기
     resultBox.classList.remove("hidden");
+    questionBox.classList.add("hidden");
+    mainTitle.textContent = "꿀차맘대로 테스트 결과!";
 }
 
 // 8. 점수가 가장 높은 유형 찾기 (순수 로직)
