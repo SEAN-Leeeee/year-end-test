@@ -71,6 +71,7 @@ const typeResults = {
 const questionTitleEl = document.getElementById("question-title");
 const optionsEl = document.getElementById("options");
 const progressEl = document.getElementById("progress");
+const subtitle = document.getElementById("subtitle");
 
 const resultBox = document.getElementById("result");
 const resultTitle = document.getElementById("result-title");
@@ -164,6 +165,9 @@ function showResult() {
     }
 
     resultBox.classList.remove("hidden");
+    subtitle.classList.remove("hidden");
+    progressEl.classList.remove("hidden");
+
     questionBox.classList.add("hidden");
     mainTitle.textContent = "꿀차맘대로 테스트 결과!";
 }
