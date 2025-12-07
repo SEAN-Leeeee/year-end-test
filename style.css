@@ -21,45 +21,56 @@ h1 {
 
 .subtitle {
     margin-top: 0;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     color: #666;
     font-size: 14px;
 }
 
-.question {
-    margin-bottom: 24px;
-}
-
-.question h2 {
-    font-size: 18px;
+.progress {
+    font-size: 13px;
+    color: #888;
     margin-bottom: 12px;
 }
 
-.question label {
-    display: block;
-    margin-bottom: 8px;
-    cursor: pointer;
-    font-size: 14px;
+.question-card {
+    padding: 18px 20px;
+    border-radius: 14px;
+    background: #fafbff;
+    border: 1px solid #e4e7ff;
 }
 
-.question input[type="radio"] {
-    margin-right: 8px;
+#question-title {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 16px;
 }
 
-.submit-btn, .retry-btn {
-    display: inline-block;
-    padding: 10px 18px;
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option-btn {
+    padding: 10px 14px;
     border-radius: 999px;
-    border: none;
+    border: 1px solid #dde1ff;
+    background: #ffffff;
+    text-align: left;
     font-size: 14px;
     cursor: pointer;
-    background: #2a72ff;
-    color: white;
-    font-weight: 600;
+    transition: transform 0.05s ease-out, box-shadow 0.1s ease-out, background 0.1s ease-out;
 }
 
-.submit-btn:hover, .retry-btn:hover {
-    opacity: 0.9;
+.option-btn:hover {
+    background: #f0f4ff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    transform: translateY(-1px);
+}
+
+.option-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
 }
 
 .result {
@@ -75,6 +86,23 @@ h1 {
 
 .result p {
     margin: 4px 0;
+}
+
+.retry-btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    background: #2a72ff;
+    color: white;
+    font-weight: 600;
+}
+
+.retry-btn:hover {
+    opacity: 0.9;
 }
 
 .hidden {

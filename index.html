@@ -5,66 +5,31 @@
 	<title>연말 성향 테스트</title>
 	<link rel="stylesheet" href="style.css">
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHKBHHESKQ"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-PHKBHHESKQ');
+</script>
 <body>
 <div class="app">
-	<h1>연말에는 어떻게 보내고 싶으신가요?</h1>
-	<p class="subtitle">아래 질문에 답하면, 당신의 연말 유형과 어울리는 제품을 추천해 드립니다.</p>
+	<h1>연말 성향 테스트</h1>
+	<p class="subtitle">문항을 선택하면 다음 질문으로 넘어갑니다. 마지막까지 답하면 연말 유형과 추천이 나옵니다.</p>
 
-	<form id="quiz-form">
-		<!-- Q1 -->
-		<div class="question">
-			<h2>Q1. 연말에 가장 떠오르는 장면은?</h2>
-			<label>
-				<input type="radio" name="q1" value="alone">
-				조용한 방에서 혼자 영화 보기
-			</label>
-			<label>
-				<input type="radio" name="q1" value="couple">
-				연인과 함께 야경 보며 산책하기
-			</label>
-			<label>
-				<input type="radio" name="q1" value="family">
-				가족들과 거실에서 다 같이 이야기 나누기
-			</label>
-		</div>
+	<!-- 진행도 표시 -->
+	<div id="progress" class="progress">1 / 3</div>
 
-		<!-- Q2 -->
-		<div class="question">
-			<h2>Q2. 연말에 가장 중요하게 느껴지는 것은?</h2>
-			<label>
-				<input type="radio" name="q2" value="alone">
-				올해를 혼자 조용히 정리하는 시간
-			</label>
-			<label>
-				<input type="radio" name="q2" value="couple">
-				사랑하는 사람과의 추억 만들기
-			</label>
-			<label>
-				<input type="radio" name="q2" value="family">
-				가족과 함께하는 따뜻한 식사
-			</label>
-		</div>
+	<!-- 질문/선택지가 들어갈 카드 -->
+	<div id="question-box" class="question-card">
+		<!-- JS에서 동적으로 내용 채움 -->
+		<h2 id="question-title"></h2>
+		<div id="options" class="options"></div>
+	</div>
 
-		<!-- Q3 -->
-		<div class="question">
-			<h2>Q3. 올해 마지막 날, 가장 하고 싶은 일은?</h2>
-			<label>
-				<input type="radio" name="q3" value="alone">
-				혼자 카페에서 다이어리 쓰기
-			</label>
-			<label>
-				<input type="radio" name="q3" value="couple">
-				연인과 카운트다운 행사 참여
-			</label>
-			<label>
-				<input type="radio" name="q3" value="family">
-				가족과 집에서 함께 TV 보며 새해 맞이
-			</label>
-		</div>
-
-		<button type="submit" class="submit-btn">결과 보기</button>
-	</form>
-
+	<!-- 결과 영역 -->
 	<div id="result" class="result hidden">
 		<h2 id="result-title"></h2>
 		<p id="result-desc"></p>

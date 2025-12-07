@@ -1,11 +1,43 @@
-// 유형 점수 객체 (간단한 데이터 모델)
+// 1. 질문 데이터 모델 (객체 배열)
+// type: alone / couple / family 중 하나 → 점수에 반영
+const questions = [
+    {
+        id: 1,
+        text: "연말에 가장 떠오르는 장면은?",
+        options: [
+            { label: "조용한 방에서 혼자 영화 보기", type: "alone" },
+            { label: "연인과 함께 야경 보며 산책하기", type: "couple" },
+            { label: "가족들과 거실에서 다 같이 이야기 나누기", type: "family" }
+        ]
+    },
+    {
+        id: 2,
+        text: "연말에 가장 중요하게 느껴지는 것은?",
+        options: [
+            { label: "올해를 혼자 조용히 정리하는 시간", type: "alone" },
+            { label: "사랑하는 사람과의 추억 만들기", type: "couple" },
+            { label: "가족과 함께하는 따뜻한 식사", type: "family" }
+        ]
+    },
+    {
+        id: 3,
+        text: "올해 마지막 날, 가장 하고 싶은 일은?",
+        options: [
+            { label: "혼자 카페에서 다이어리 쓰기", type: "alone" },
+            { label: "연인과 카운트다운 행사 참여", type: "couple" },
+            { label: "가족과 집에서 함께 TV 보며 새해 맞이", type: "family" }
+        ]
+    }
+];
+
+// 2. 유형 점수 (상태)
 const typeScores = {
     alone: 0,
     couple: 0,
     family: 0
 };
 
-// 유형별 결과 메시지 (객체로 관리 → 나중에 확장 쉬움)
+// 3. 유형별 결과 메시지
 const typeResults = {
     alone: {
         title: "혼자 있는 시간을 사랑하는 타입",
@@ -24,50 +56,85 @@ const typeResults = {
     }
 };
 
-const form = document.getElementById("quiz-form");
+// 4. DOM 요소 참조
+const questionTitleEl = document.getElementById("question-title");
+const optionsEl = document.getElementById("options");
+const progressEl = document.getElementById("progress");
+
 const resultBox = document.getElementById("result");
 const resultTitle = document.getElementById("result-title");
 const resultDesc = document.getElementById("result-desc");
 const resultProduct = document.getElementById("result-product");
 const retryBtn = document.getElementById("retry-btn");
 
-form.addEventListener("submit", function (event) {
-    event.preventDefault(); // 폼 실제 제출 막기
+let currentIndex = 0; // 현재 몇 번째 질문인지
 
-    // 점수 초기화
-    typeScores.alone = 0;
-    typeScores.couple = 0;
-    typeScores.family = 0;
+// 초기 렌더
+renderQuestion();
 
-    // 각 질문의 선택 값 읽기
-    const q1 = form.elements["q1"].value;
-    const q2 = form.elements["q2"].value;
-    const q3 = form.elements["q3"].value;
-
-    // 필수 체크
-    if (!q1 || !q2 || !q3) {
-        alert("모든 문항에 답변해 주세요.");
+// 5. 현재 질문 렌더링 함수
+function renderQuestion() {
+    // 모든 질문을 다 답했으면 결과 화면으로
+    if (currentIndex >= questions.length) {
+        showResult();
         return;
     }
 
-    // 선택된 유형에 점수 +1
-    [q1, q2, q3].forEach(type => {
-        typeScores[type] += 1;
+    const currentQuestion = questions[currentIndex];
+
+    // 진행도 표시 (예: 2 / 3)
+    progressEl.textContent = (currentIndex + 1) + " / " + questions.length;
+
+    // 질문 텍스트
+    questionTitleEl.textContent = "Q" + (currentIndex + 1) + ". " + currentQuestion.text;
+
+    // 이전 옵션들 비우기
+    optionsEl.innerHTML = "";
+
+    // 선택지 버튼 생성
+    currentQuestion.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.textContent = option.label;
+
+        btn.addEventListener("click", () => {
+            handleOptionClick(option.type);
+        });
+
+        optionsEl.appendChild(btn);
     });
 
-    // 최종 유형 계산
+    // 결과 박스는 질문 진행 중에는 숨김
+    resultBox.classList.add("hidden");
+}
+
+// 6. 선택지를 클릭했을 때 로직
+function handleOptionClick(selectedType) {
+    // 선택된 유형 점수 +1
+    typeScores[selectedType] += 1;
+
+    // 다음 질문으로 이동
+    currentIndex += 1;
+    renderQuestion();
+}
+
+// 7. 최종 결과 계산 + 출력
+function showResult() {
     const finalType = getFinalType(typeScores);
     const finalResult = typeResults[finalType];
 
-    // 결과 출력
     resultTitle.textContent = finalResult.title;
     resultDesc.textContent = finalResult.desc;
     resultProduct.textContent = finalResult.product;
 
+    // 결과 영역 보이기
     resultBox.classList.remove("hidden");
-});
 
-// 점수가 가장 높은 유형 찾기 (객체지향적인 '책임' 관점의 함수)
+    // 질문 카드 대신 결과만 보여주고 싶다면 아래 한 줄 추가
+    // document.getElementById("question-box").classList.add("hidden");
+}
+
+// 8. 점수가 가장 높은 유형 찾기 (순수 로직)
 function getFinalType(scores) {
     let maxType = "alone";
     let maxScore = scores.alone;
@@ -82,8 +149,16 @@ function getFinalType(scores) {
     return maxType;
 }
 
-// 다시하기
-retryBtn.addEventListener("click", function () {
-    form.reset();
-    resultBox.classList.add("hidden");
+// 9. 다시하기 버튼
+retryBtn.addEventListener("click", () => {
+    // 점수 초기화
+    typeScores.alone = 0;
+    typeScores.couple = 0;
+    typeScores.family = 0;
+
+    currentIndex = 0;
+    // 질문 카드 보이게 하고
+    document.getElementById("question-box").classList.remove("hidden");
+    // 다시 렌더
+    renderQuestion();
 });
