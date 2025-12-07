@@ -165,10 +165,11 @@ function showResult() {
     }
 
     resultBox.classList.remove("hidden");
-    subtitle.classList.remove("hidden");
-    progressEl.classList.remove("hidden");
+    subtitle.classList.add("hidden");
+    progressEl.classList.add("hidden");
 
     questionBox.classList.add("hidden");
+
     mainTitle.textContent = "꿀차맘대로 테스트 결과!";
 }
 
