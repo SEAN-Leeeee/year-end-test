@@ -1,5 +1,4 @@
 // 1. 질문 데이터 모델 (객체 배열)
-// type: alone / couple / family 중 하나 → 점수에 반영
 const questions = [
     {
         id: 1,
@@ -37,6 +36,7 @@ const typeScores = {
     family: 0
 };
 
+// 3. 유형별 결과 + 상품 정보
 const typeResults = {
     alone: {
         title: "혼자 있는 시간을 사랑하는 꿀단지!",
@@ -68,8 +68,6 @@ const typeResults = {
 };
 
 // 4. DOM 요소 참조
-
-// 4. DOM 요소 참조
 const questionTitleEl = document.getElementById("question-title");
 const optionsEl = document.getElementById("options");
 const progressEl = document.getElementById("progress");
@@ -81,7 +79,6 @@ const resultProduct = document.getElementById("result-product");
 
 const buyBtn1 = document.getElementById("buy-btn-1");
 const buyBtn2 = document.getElementById("buy-btn-2");
-const retryBtn = document.getElementById("retry-btn");
 
 let currentIndex = 0; // 현재 몇 번째 질문인지
 
@@ -120,7 +117,7 @@ function renderQuestion() {
         optionsEl.appendChild(btn);
     });
 
-    // 결과 박스는 질문 진행 중에는 숨김
+    // 질문 진행 중에는 결과 박스 숨김
     resultBox.classList.add("hidden");
 }
 
@@ -138,6 +135,9 @@ function handleOptionClick(selectedType) {
 function showResult() {
     const finalType = getFinalType(typeScores);
     const finalResult = typeResults[finalType];
+
+    // 혹시 모를 디버깅용 로그
+    console.log("최종 타입:", finalType, finalResult);
 
     resultTitle.textContent = finalResult.title;
     resultDesc.textContent = finalResult.desc;
@@ -179,17 +179,3 @@ function getFinalType(scores) {
 
     return maxType;
 }
-//
-// // 9. 다시하기 버튼
-// retryBtn.addEventListener("click", () => {
-//     // 점수 초기화
-//     typeScores.alone = 0;
-//     typeScores.couple = 0;
-//     typeScores.family = 0;
-//
-//     currentIndex = 0;
-//     // 질문 카드 보이게 하고
-//     document.getElementById("question-box").classList.remove("hidden");
-//     // 다시 렌더
-//     renderQuestion();
-// });
