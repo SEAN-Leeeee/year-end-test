@@ -17,7 +17,7 @@
 <body>
 <div class="app">
 	<h1>연말 성향 테스트</h1>
-	<p class="subtitle">문항을 선택하면 다음 질문으로 넘어갑니다. 마지막까지 답하면 연말 유형과 추천이 나옵니다.</p>
+	<p class="subtitle">각 문항을 모두 고심해보세요?!</p>
 
 	<!-- 진행도 표시 -->
 	<div id="progress" class="progress">1 / 3</div>
@@ -28,13 +28,15 @@
 		<h2 id="question-title"></h2>
 		<div id="options" class="options"></div>
 	</div>
-
-	<!-- 결과 영역 -->
 	<div id="result" class="result hidden">
 		<h2 id="result-title"></h2>
 		<p id="result-desc"></p>
 		<p id="result-product"></p>
-		<button id="retry-btn" class="retry-btn">다시 해보기</button>
+
+		<div class="buy-buttons">
+			<a id="buy-btn-1" class="retry-btn hidden" target="_blank">첫 번째 상품</a>
+			<a id="buy-btn-2" class="retry-btn hidden" target="_blank">두 번째 상품</a>
+		</div>
 	</div>
 </div>
 

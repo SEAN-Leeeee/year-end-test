@@ -37,24 +37,37 @@ const typeScores = {
     family: 0
 };
 
-// 3. 유형별 결과 메시지
 const typeResults = {
     alone: {
-        title: "혼자 있는 시간을 사랑하는 꿀단지",
+        title: "혼자 있는 시간을 사랑하는 꿀단지!",
         desc: "조용히 나를 돌아보고, 생각을 정리하는 시간이 가장 소중한 타입입니다.",
-        product: "📌 추천: 온전한 나만의 한 해를 돌아보고 정리할 수 있는 \"나의한해지도\" "
+        product: "📌 추천: 온전한 나만의 한 해를 돌아보고 정리할 수 있는 \"나의한해지도\"",
+        url1: "https://m.smartstore.naver.com/ggulcha/products/11227797705",
+        url1Text: "나의한해지도 구매하러 가기",
+        url2: null,
+        url2Text: null
     },
     couple: {
-        title: "연인과의 순간을 중시하는 꿀단지",
+        title: "연인과의 순간을 중시하는 꿀단지!",
         desc: "사랑하는 사람과의 추억과 감정을 가장 중요하게 여기는 타입입니다.",
-        product: "📌 추천: 함꼐한 한 해를 돌아볼 수 있는 \"나의한해지도\", 크리스마스를 특별하게 만들어줄 \"커플대화키트\""
+        product: "📌 추천: 연인과 함께한 한 해를 돌아볼 수 있는 \"나의한해지도\", 크리스마스를 특별하게 만들어줄 \"커플대화키트\"",
+        url1: "https://m.smartstore.naver.com/ggulcha/products/11227797705", // 나의한해지도
+        url1Text: "나의한해지도 구매하러 가기",
+        url2: "https://m.smartstore.naver.com/ggulcha/products/11563138852", // 커플대화키트
+        url2Text: "커플대화키트 구매하러 가기"
     },
     family: {
-        title: "가족과 함께하는 시간을 소중히 여기는 꿀단지",
+        title: "가족과 함께하는 시간을 소중히 여기는 꿀단지!",
         desc: "따뜻한 집, 편안한 대화, 함께 웃는 시간을 무엇보다 값지게 생각하는 타입입니다.",
-        product: "📌 추천: 온 가족이 함께 한 해를 돌아볼 수 있는 \"나의한해지도\", 크리스마스를 더욱 따뜻하게 만들어줄 \"가족대화키트\" "
+        product: "📌 추천: 온 가족이 함께 한 해를 돌아볼 수 있는 \"나의한해지도\", 크리스마스를 더욱 따뜻하게 만들어줄 \"가족대화키트\"",
+        url1: "https://m.smartstore.naver.com/ggulcha/products/11227797705", // 나의한해지도
+        url1Text: "나의한해지도 구매하러 가기",
+        url2: "https://m.smartstore.naver.com/ggulcha/products/11755222317", // 가족대화키트
+        url2Text: "가족대화키트 구매하러 가기"
     }
 };
+
+// 4. DOM 요소 참조
 
 // 4. DOM 요소 참조
 const questionTitleEl = document.getElementById("question-title");
@@ -65,6 +78,9 @@ const resultBox = document.getElementById("result");
 const resultTitle = document.getElementById("result-title");
 const resultDesc = document.getElementById("result-desc");
 const resultProduct = document.getElementById("result-product");
+
+const buyBtn1 = document.getElementById("buy-btn-1");
+const buyBtn2 = document.getElementById("buy-btn-2");
 const retryBtn = document.getElementById("retry-btn");
 
 let currentIndex = 0; // 현재 몇 번째 질문인지
@@ -127,11 +143,26 @@ function showResult() {
     resultDesc.textContent = finalResult.desc;
     resultProduct.textContent = finalResult.product;
 
+    // 1번 버튼 세팅
+    if (finalResult.url1) {
+        buyBtn1.href = finalResult.url1;
+        buyBtn1.textContent = finalResult.url1Text || "지금 구매하러 가기!";
+        buyBtn1.classList.remove("hidden");
+    } else {
+        buyBtn1.classList.add("hidden");
+    }
+
+    // 2번 버튼 세팅
+    if (finalResult.url2) {
+        buyBtn2.href = finalResult.url2;
+        buyBtn2.textContent = finalResult.url2Text || "다른 상품 보러 가기";
+        buyBtn2.classList.remove("hidden");
+    } else {
+        buyBtn2.classList.add("hidden");
+    }
+
     // 결과 영역 보이기
     resultBox.classList.remove("hidden");
-
-    // 질문 카드 대신 결과만 보여주고 싶다면 아래 한 줄 추가
-    // document.getElementById("question-box").classList.add("hidden");
 }
 
 // 8. 점수가 가장 높은 유형 찾기 (순수 로직)
@@ -148,17 +179,17 @@ function getFinalType(scores) {
 
     return maxType;
 }
-
-// 9. 다시하기 버튼
-retryBtn.addEventListener("click", () => {
-    // 점수 초기화
-    typeScores.alone = 0;
-    typeScores.couple = 0;
-    typeScores.family = 0;
-
-    currentIndex = 0;
-    // 질문 카드 보이게 하고
-    document.getElementById("question-box").classList.remove("hidden");
-    // 다시 렌더
-    renderQuestion();
-});
+//
+// // 9. 다시하기 버튼
+// retryBtn.addEventListener("click", () => {
+//     // 점수 초기화
+//     typeScores.alone = 0;
+//     typeScores.couple = 0;
+//     typeScores.family = 0;
+//
+//     currentIndex = 0;
+//     // 질문 카드 보이게 하고
+//     document.getElementById("question-box").classList.remove("hidden");
+//     // 다시 렌더
+//     renderQuestion();
+// });
