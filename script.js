@@ -1,3 +1,4 @@
+// 1. 질문 데이터 모델 (객체 배열)
 const questions = [
     {
         id: 1,
@@ -25,15 +26,44 @@ const questions = [
             { label: "연인과 함께 작은 파티 즐기기", type: "couple" },
             { label: "가족과 집에서 함께 TV 보며 새해 맞이", type: "family" }
         ]
+    },
+    {
+        id: 4,
+        text: "연말에 사진을 찍는다면 누구와 가장 많이 찍을 것 같나요?",
+        options: [
+            { label: "셀카로 나만의 기록 남기기", type: "alone" },
+            { label: "연인과 꽁냥꽁냥 커플샷 남기기", type: "couple" },
+            { label: "가족 단체사진 꾸준히 찍기", type: "family" }
+        ]
+    },
+    {
+        id: 5,
+        text: "연말 선물을 떠올리면 가장 먼저 생각나는 것은?",
+        options: [
+            { label: "나에게 주는 작은 선물", type: "alone" },
+            { label: "연인에게 줄 깜짝 선물", type: "couple" },
+            { label: "가족 모두가 함께 쓸 수 있는 선물", type: "family" }
+        ]
+    },
+    {
+        id: 6,
+        text: "연말에 갑자기 하루 휴가가 생겼다면?",
+        options: [
+            { label: "집에서 혼자 푹 쉬고 혼밥하기", type: "alone" },
+            { label: "연인과 근교로 짧은 여행 떠나기", type: "couple" },
+            { label: "가족과 함께 근처 맛집 가기", type: "family" }
+        ]
     }
 ];
 
+// 2. 유형 점수 (상태)
 const typeScores = {
     alone: 0,
     couple: 0,
     family: 0
 };
 
+// 3. 유형별 결과 + 상품 정보
 const typeResults = {
     alone: {
         title: "혼자 있는 시간을 사랑하는 꿀단지!",
@@ -64,6 +94,8 @@ const typeResults = {
     }
 };
 
+// 4. DOM 요소 참조
+const app = document.querySelector(".app");
 const questionTitleEl = document.getElementById("question-title");
 const optionsEl = document.getElementById("options");
 const progressEl = document.getElementById("progress");
@@ -79,11 +111,15 @@ const buyBtn2 = document.getElementById("buy-btn-2");
 
 const questionBox = document.getElementById("question-box");
 const mainTitle = document.getElementById("main-title");
+
 let currentIndex = 0; // 현재 몇 번째 질문인지
 
+// 초기 렌더
 renderQuestion();
 
+// 5. 현재 질문 렌더링 함수
 function renderQuestion() {
+    // 모든 질문을 다 답했으면 결과 화면으로
     if (currentIndex >= questions.length) {
         showResult();
         return;
@@ -91,7 +127,7 @@ function renderQuestion() {
 
     const currentQuestion = questions[currentIndex];
 
-    // 진행도 표시 (예: 2 / 3)
+    // 진행도 표시 (예: 2 / 6)
     progressEl.textContent = (currentIndex + 1) + " / " + questions.length;
 
     // 질문 텍스트
@@ -113,16 +149,28 @@ function renderQuestion() {
         optionsEl.appendChild(btn);
     });
 
+    // 질문 진행 중 상태 세팅
     resultBox.classList.add("hidden");
+    subtitle.classList.remove("hidden");
+    progressEl.classList.remove("hidden");
+    questionBox.classList.remove("hidden");
+    mainTitle.textContent = "연말 성향 테스트";
+
+    // 결과 모드 해제 → 위쪽 정렬
+    app.classList.remove("result-mode");
 }
 
+// 6. 선택지를 클릭했을 때 로직
 function handleOptionClick(selectedType) {
+    // 선택된 유형 점수 +1
     typeScores[selectedType] += 1;
 
+    // 다음 질문으로 이동
     currentIndex += 1;
     renderQuestion();
 }
 
+// 7. 최종 결과 계산 + 출력
 function showResult() {
     const finalType = getFinalType(typeScores);
     const finalResult = typeResults[finalType];
@@ -133,6 +181,7 @@ function showResult() {
     resultDesc.textContent = finalResult.desc;
     resultProduct.textContent = finalResult.product;
 
+    // 1번 버튼 세팅
     if (finalResult.url1) {
         buyBtn1.href = finalResult.url1;
         buyBtn1.textContent = finalResult.url1Text || "지금 구매하러 가기!";
@@ -141,6 +190,7 @@ function showResult() {
         buyBtn1.classList.add("hidden");
     }
 
+    // 2번 버튼 세팅
     if (finalResult.url2) {
         buyBtn2.href = finalResult.url2;
         buyBtn2.textContent = finalResult.url2Text || "다른 상품 보러 가기";
@@ -149,15 +199,18 @@ function showResult() {
         buyBtn2.classList.add("hidden");
     }
 
+    // 결과 화면 상태 세팅
     resultBox.classList.remove("hidden");
     subtitle.classList.add("hidden");
     progressEl.classList.add("hidden");
-
     questionBox.classList.add("hidden");
-
     mainTitle.textContent = "꿀차맘대로 테스트 결과!";
+
+    // 결과 모드 → 카드 안에서 세로 중앙 정렬
+    app.classList.add("result-mode");
 }
 
+// 8. 점수가 가장 높은 유형 찾기 (순수 로직)
 function getFinalType(scores) {
     let maxType = "alone";
     let maxScore = scores.alone;

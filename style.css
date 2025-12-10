@@ -16,6 +16,7 @@ body {
 body {
     font-family: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     color: #4A4A4A;
+    font-weight: 600; /* 기본 텍스트는 볼드 느낌 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,7 +49,7 @@ body::after {
     z-index: -1;
 }
 
-/* ===== 메인 카드 (글라스 UI + 세로 길게) ===== */
+/* ===== 메인 카드 (글라스 UI + 세로 길이) ===== */
 
 .app {
     width: min(720px, 92%);
@@ -62,11 +63,16 @@ body::after {
     backdrop-filter: blur(16px) saturate(160%);
     position: relative;
 
-    /* 데스크톱에서만 세로로 길게 느낌 */
-    min-height: 80vh;
+    min-height: 70vh;              /* 데스크톱에서 적당한 세로 길이 */
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: flex-start;   /* 기본은 위쪽 정렬 */
+}
+
+/* 결과 모드일 때는 카드 안에서 세로 중앙 정렬 */
+.app.result-mode {
+    justify-content: center;
+    min-height: 70vh;  /* 결과는 화면 기준으로 좀 더 크게 */
 }
 
 /* 카드 외곽 라인 */
@@ -87,6 +93,7 @@ body::after {
     letter-spacing: -0.03em;
     color: #5A4B00;
     text-align: center;
+    font-weight: 700; /* 제목이 가장 굵고 큼 */
 }
 
 .subtitle {
@@ -94,6 +101,7 @@ body::after {
     margin: 0 0 16px;
     color: #8f7c2b;
     font-size: 13px;
+    font-weight: 600;
 }
 
 /* ===== 진행도 ===== */
@@ -103,6 +111,7 @@ body::after {
     font-size: 12px;
     color: #9b8b4e;
     margin-bottom: 18px;
+    font-weight: 600;
 }
 
 /* ===== 질문 카드 ===== */
@@ -120,6 +129,7 @@ body::after {
     font-size: 17px;
     margin: 0 0 14px;
     color: #5c4b24;
+    font-weight: 600;
 }
 
 /* ===== 선택지 버튼 ===== */
@@ -139,6 +149,7 @@ body::after {
     font-size: 14px;
     cursor: pointer;
     color: #5d4b1f;
+    font-weight: 600;
     transition:
             transform 0.18s ease-out,
             box-shadow 0.18s ease-out,
@@ -168,12 +179,14 @@ body::after {
     font-size: 20px;
     margin: 0 0 6px;
     color: #5a4b00;
+    font-weight: 700;
 }
 
 .result p {
     margin: 5px 0;
     color: #7a6a23;
     font-size: 14px;
+    font-weight: 600;
 }
 
 /* ===== 구매 버튼 (노란 글라스 카드) ===== */
@@ -235,9 +248,12 @@ body::after {
         margin: 18px auto 24px;
         padding: 20px 16px 18px;
         border-radius: 18px;
+        min-height: auto; /* 기본은 내용만큼 높이 */
+    }
 
-        /* 모바일에서는 카드 높이를 내용에 맞게 */
-        min-height: auto;
+    /* 결과 모드일 때는 모바일에서도 어느 정도 가운데 */
+    .app.result-mode {
+        min-height: 70vh;
     }
 
     #main-title {
@@ -265,8 +281,8 @@ body::after {
     }
 
     .option-btn {
-        font-size: 15px;      /* 글자 키우기 */
-        padding: 12px 14px;   /* 버튼 높이 키우기 */
+        font-size: 15px;
+        padding: 12px 14px;
         border-radius: 16px;
     }
 
