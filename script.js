@@ -1,4 +1,3 @@
-// 1. 질문 데이터 모델 (객체 배열)
 const questions = [
     {
         id: 1,
@@ -29,14 +28,12 @@ const questions = [
     }
 ];
 
-// 2. 유형 점수 (상태)
 const typeScores = {
     alone: 0,
     couple: 0,
     family: 0
 };
 
-// 3. 유형별 결과 + 상품 정보
 const typeResults = {
     alone: {
         title: "혼자 있는 시간을 사랑하는 꿀단지!",
@@ -67,7 +64,6 @@ const typeResults = {
     }
 };
 
-// 4. DOM 요소 참조
 const questionTitleEl = document.getElementById("question-title");
 const optionsEl = document.getElementById("options");
 const progressEl = document.getElementById("progress");
@@ -85,12 +81,9 @@ const questionBox = document.getElementById("question-box");
 const mainTitle = document.getElementById("main-title");
 let currentIndex = 0; // 현재 몇 번째 질문인지
 
-// 초기 렌더
 renderQuestion();
 
-// 5. 현재 질문 렌더링 함수
 function renderQuestion() {
-    // 모든 질문을 다 답했으면 결과 화면으로
     if (currentIndex >= questions.length) {
         showResult();
         return;
@@ -120,33 +113,26 @@ function renderQuestion() {
         optionsEl.appendChild(btn);
     });
 
-    // 질문 진행 중에는 결과 박스 숨김
     resultBox.classList.add("hidden");
 }
 
-// 6. 선택지를 클릭했을 때 로직
 function handleOptionClick(selectedType) {
-    // 선택된 유형 점수 +1
     typeScores[selectedType] += 1;
 
-    // 다음 질문으로 이동
     currentIndex += 1;
     renderQuestion();
 }
 
-// 7. 최종 결과 계산 + 출력
 function showResult() {
     const finalType = getFinalType(typeScores);
     const finalResult = typeResults[finalType];
 
-    // 혹시 모를 디버깅용 로그
     console.log("최종 타입:", finalType, finalResult);
 
     resultTitle.textContent = finalResult.title;
     resultDesc.textContent = finalResult.desc;
     resultProduct.textContent = finalResult.product;
 
-    // 1번 버튼 세팅
     if (finalResult.url1) {
         buyBtn1.href = finalResult.url1;
         buyBtn1.textContent = finalResult.url1Text || "지금 구매하러 가기!";
@@ -155,7 +141,6 @@ function showResult() {
         buyBtn1.classList.add("hidden");
     }
 
-    // 2번 버튼 세팅
     if (finalResult.url2) {
         buyBtn2.href = finalResult.url2;
         buyBtn2.textContent = finalResult.url2Text || "다른 상품 보러 가기";
@@ -173,7 +158,6 @@ function showResult() {
     mainTitle.textContent = "꿀차맘대로 테스트 결과!";
 }
 
-// 8. 점수가 가장 높은 유형 찾기 (순수 로직)
 function getFinalType(scores) {
     let maxType = "alone";
     let maxScore = scores.alone;
