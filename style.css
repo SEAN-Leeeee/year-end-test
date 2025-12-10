@@ -1,49 +1,136 @@
+/* ===== 기본 레이아웃 & 프리즘 배경 ===== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
 body {
     margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: #f7f7fb;
+    padding: 0;
+    height: 100%;
 }
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+    background: #020617;
+    position: relative;
+}
+
+/* 프리즘 버스트 느낌 배경 (Reactbits 느낌만 따온 커스텀 버전) */
+body::before {
+    content: "";
+    position: fixed;
+    inset: -40%;
+    background:
+            radial-gradient(circle at 0% 0%, rgba(248, 113, 113, 0.8), transparent 55%),
+            radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.7), transparent 55%),
+            radial-gradient(circle at 0% 100%, rgba(190, 242, 100, 0.7), transparent 55%),
+            radial-gradient(circle at 100% 100%, rgba(196, 181, 253, 0.9), transparent 60%);
+    filter: blur(32px);
+    opacity: 0.9;
+    z-index: -2;
+    animation: prism-rotate 24s linear infinite;
+}
+
+/* 살짝 어둡게 덮는 레이어 (글라스 대비를 위해) */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+            radial-gradient(circle at top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.98) 45%, rgba(15, 23, 42, 1) 80%);
+    z-index: -1;
+}
+
+/* 프리즘 배경 회전 애니메이션 */
+@keyframes prism-rotate {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.05);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+/* ===== 메인 카드 (글라스 UI) ===== */
 
 .app {
-    max-width: 700px;
-    margin: 40px auto;
-    padding: 24px 28px;
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    width: min(720px, 100% - 32px);
+    padding: 28px 24px 22px;
+    border-radius: 24px;
+    background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.18), transparent 65%),
+    radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    box-shadow:
+            0 0 0 1px rgba(148, 163, 184, 0.3),
+            0 20px 60px rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(22px) saturate(150%);
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+    position: relative;
 }
 
-h1 {
-    margin-top: 0;
-    margin-bottom: 8px;
-    font-size: 28px;
+/* 카드 안의 살짝 빛나는 테두리 */
+.app::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    border: 1px solid rgba(248, 250, 252, 0.06);
+    pointer-events: none;
+}
+
+/* ===== 타이틀 & 서브타이틀 ===== */
+
+#main-title {
+    margin: 0 0 6px;
+    font-size: 26px;
+    letter-spacing: -0.02em;
+    color: #f9fafb;
 }
 
 .subtitle {
-    margin-top: 0;
-    margin-bottom: 20px;
-    color: #666;
-    font-size: 14px;
+    margin: 0 0 18px;
+    color: #cbd5f5;
+    font-size: 13px;
 }
+
+/* ===== 진행도 ===== */
 
 .progress {
-    font-size: 13px;
-    color: #888;
-    margin-bottom: 12px;
+    font-size: 12px;
+    color: #94a3b8;
+    margin-bottom: 14px;
 }
 
+/* ===== 질문 카드 ===== */
+
 .question-card {
-    padding: 18px 20px;
-    border-radius: 14px;
-    background: #fafbff;
-    border: 1px solid #e4e7ff;
+    padding: 18px 18px 18px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 64, 175, 0.85));
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
 }
 
 #question-title {
-    font-size: 18px;
-    margin-top: 0;
-    margin-bottom: 16px;
+    font-size: 17px;
+    margin: 0 0 14px;
+    color: #e5edff;
 }
+
+/* ===== 선택지 버튼들 ===== */
 
 .options {
     display: flex;
@@ -52,59 +139,142 @@ h1 {
 }
 
 .option-btn {
-    padding: 10px 14px;
+    padding: 11px 14px;
     border-radius: 999px;
-    border: 1px solid #dde1ff;
-    background: #ffffff;
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    background: radial-gradient(circle at top left, rgba(51, 65, 85, 0.9), rgba(15, 23, 42, 0.95));
     text-align: left;
-    font-size: 14px;
+    font-size: 13px;
     cursor: pointer;
-    transition: transform 0.05s ease-out, box-shadow 0.1s ease-out, background 0.1s ease-out;
+    color: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    transition:
+            transform 0.14s ease-out,
+            box-shadow 0.14s ease-out,
+            border-color 0.14s ease-out,
+            background 0.14s ease-out;
+}
+
+.option-btn::after {
+    content: "➜";
+    font-size: 11px;
+    opacity: 0.6;
 }
 
 .option-btn:hover {
-    background: #f0f4ff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
-    transform: translateY(-1px);
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.9);
+    border-color: rgba(129, 140, 248, 0.9);
+    background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.9), rgba(15, 23, 42, 0.95));
 }
 
 .option-btn:active {
-    transform: translateY(0);
-    box-shadow: none;
+    transform: translateY(0) scale(0.99);
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.9);
 }
 
+/* ===== 결과 영역 ===== */
+
 .result {
-    margin-top: 24px;
+    margin-top: 22px;
     padding-top: 16px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid rgba(148, 163, 184, 0.5);
 }
 
 .result h2 {
-    margin-top: 0;
-    margin-bottom: 8px;
+    margin: 0 0 6px;
+    font-size: 18px;
+    color: #f9fafb;
 }
 
 .result p {
     margin: 4px 0;
+    font-size: 13px;
+    color: #cbd5f5;
+}
+
+/* ===== 구매 버튼(글라스 카드 느낌) ===== */
+
+.buy-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 14px;
 }
 
 .retry-btn {
     display: inline-block;
-    margin-top: 12px;
-    padding: 10px 18px;
-    border-radius: 999px;
-    border: none;
-    font-size: 14px;
+    text-align: center;
+    padding: 11px 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(129, 140, 248, 0.7);
+    font-size: 13px;
     cursor: pointer;
-    background: #2a72ff;
-    color: white;
     font-weight: 600;
+    text-decoration: none;
+    background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.9), rgba(15, 23, 42, 0.98));
+    color: #e0e7ff;
+    box-shadow:
+            0 0 0 1px rgba(15, 23, 42, 0.7),
+            0 16px 40px rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    transition:
+            transform 0.16s ease-out,
+            box-shadow 0.16s ease-out,
+            background 0.16s ease-out,
+            border-color 0.16s ease-out;
 }
 
 .retry-btn:hover {
-    opacity: 0.9;
+    transform: translateY(-2px) scale(1.01);
+    box-shadow:
+            0 0 0 1px rgba(129, 140, 248, 0.8),
+            0 20px 50px rgba(15, 23, 42, 1);
+    background: radial-gradient(circle at top, rgba(59, 130, 246, 0.95), rgba(15, 23, 42, 0.98));
+    border-color: rgba(191, 219, 254, 0.9);
 }
+
+.retry-btn:active {
+    transform: translateY(0) scale(0.99);
+    box-shadow:
+            0 0 0 1px rgba(15, 23, 42, 0.9),
+            0 12px 32px rgba(15, 23, 42, 1);
+}
+
+/* ===== 유틸 ===== */
 
 .hidden {
     display: none;
+}
+
+/* 모바일 대응 */
+
+@media (max-width: 480px) {
+    .app {
+        padding: 22px 16px 18px;
+        border-radius: 20px;
+    }
+
+    #main-title {
+        font-size: 22px;
+    }
+
+    .question-card {
+        padding: 16px 14px;
+        border-radius: 16px;
+    }
+
+    .option-btn {
+        font-size: 12px;
+        padding: 10px 12px;
+    }
+
+    .retry-btn {
+        font-size: 12px;
+        padding: 10px 14px;
+    }
 }
