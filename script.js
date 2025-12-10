@@ -95,7 +95,6 @@ const typeResults = {
 };
 
 // 4. DOM 요소 참조
-const app = document.querySelector(".app");
 const questionTitleEl = document.getElementById("question-title");
 const optionsEl = document.getElementById("options");
 const progressEl = document.getElementById("progress");
@@ -155,9 +154,6 @@ function renderQuestion() {
     progressEl.classList.remove("hidden");
     questionBox.classList.remove("hidden");
     mainTitle.textContent = "연말 성향 테스트";
-
-    // 결과 모드 해제 → 위쪽 정렬
-    app.classList.remove("result-mode");
 }
 
 // 6. 선택지를 클릭했을 때 로직
@@ -205,9 +201,6 @@ function showResult() {
     progressEl.classList.add("hidden");
     questionBox.classList.add("hidden");
     mainTitle.textContent = "꿀차맘대로 테스트 결과!";
-
-    // 결과 모드 → 카드 안에서 세로 중앙 정렬
-    app.classList.add("result-mode");
 }
 
 // 8. 점수가 가장 높은 유형 찾기 (순수 로직)
