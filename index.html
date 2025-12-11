@@ -17,13 +17,22 @@
 <body>
 <div class="app">
 	<h1 id="main-title">연말 성향 테스트</h1>
-	<p class="subtitle" id="subtitle">각 문항을 모두 고심해서 골라보세요?!</p>
 
-	<!-- 진행도 표시 -->
-	<div id="progress" class="progress">1 / 6</div>
+	<!-- ✨ 시작 화면 -->
+	<div id="intro-box" class="intro-box">
+		<p class="intro-text">
+			연말 선물을 누구에게 주고싶을까요?<br>
+			나의 마음을 알아보는 테스트
+		</p>
+		<button id="start-btn" class="start-btn">시작하기</button>
+	</div>
+
+	<!-- 질문 모드에서만 보이는 설명/진행도 -->
+	<p class="subtitle hidden" id="subtitle">각 문항을 모두 고심해서 골라보세요?!</p>
+	<div id="progress" class="progress hidden">1 / 6</div>
 
 	<!-- 질문/선택지가 들어갈 카드 -->
-	<div id="question-box" class="question-card">
+	<div id="question-box" class="question-card hidden">
 		<h2 id="question-title"></h2>
 		<div id="options" class="options"></div>
 	</div>
@@ -34,7 +43,7 @@
 		<p id="result-desc"></p>
 		<p id="result-product"></p>
 
-		<!-- 타입별 이미지 들어가는 곳 (최대 2장) -->
+		<!-- 타입별 PNG (박스 스타일 없이 그대로) -->
 		<div class="result-image-box">
 			<img id="result-image-1" class="result-image hidden" alt="추천 상품 이미지 1">
 			<img id="result-image-2" class="result-image hidden" alt="추천 상품 이미지 2">
@@ -43,6 +52,11 @@
 		<div class="buy-buttons">
 			<a id="buy-btn-1" class="retry-btn hidden" target="_blank">첫 번째 상품</a>
 			<a id="buy-btn-2" class="retry-btn hidden" target="_blank">두 번째 상품</a>
+		</div>
+
+		<!-- 오른쪽 아래 하얀 글라스 박스: 다시하기 -->
+		<div class="restart-container">
+			<button id="restart-btn" class="restart-btn">다시하기</button>
 		</div>
 	</div>
 </div>

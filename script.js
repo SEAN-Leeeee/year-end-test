@@ -73,7 +73,7 @@ const typeResults = {
         url1Text: "나의한해지도 구매하러 가기",
         url2: null,
         url2Text: null,
-        image1: "img/fullYear.png",   // 1번 사진
+        image1: "img/fullYear.png",   // 1번 PNG
         image1Alt: "나의한해지도를 들고 있는 사람들",
         image2: null,
         image2Alt: null
@@ -86,9 +86,9 @@ const typeResults = {
         url1Text: "나의한해지도 구매하러 가기",
         url2: "https://m.smartstore.naver.com/ggulcha/products/11563138852", // 커플대화키트
         url2Text: "커플대화키트 구매하러 가기",
-        image1: "img/fullYear.png",   // 나의한해지도
+        image1: "img/fullYear.png",   // 1번 PNG
         image1Alt: "나의한해지도를 들고 있는 사람들",
-        image2: "img/couple.png",     // 커플대화키트
+        image2: "img/couple.png",     // 2번 PNG
         image2Alt: "커플대화키트 패키지"
     },
     family: {
@@ -99,9 +99,9 @@ const typeResults = {
         url1Text: "나의한해지도 구매하러 가기",
         url2: "https://m.smartstore.naver.com/ggulcha/products/11755222317", // 가족대화키트
         url2Text: "가족대화키트 구매하러 가기",
-        image1: "img/fullYear.png",   // 나의한해지도
+        image1: "img/fullYear.png",   // 1번 PNG
         image1Alt: "나의한해지도를 들고 있는 사람들",
-        image2: "img/family.png",     // 가족활동지
+        image2: "img/family.png",     // 3번 PNG
         image2Alt: "꿀단지 가족활동지"
     }
 };
@@ -125,12 +125,56 @@ const buyBtn2 = document.getElementById("buy-btn-2");
 const questionBox = document.getElementById("question-box");
 const mainTitle = document.getElementById("main-title");
 
+const introBox = document.getElementById("intro-box");
+const startBtn = document.getElementById("start-btn");
+const restartBtn = document.getElementById("restart-btn");
+
 let currentIndex = 0; // 현재 몇 번째 질문인지
 
-// 초기 렌더
-renderQuestion();
+// ===== 공통: 점수/상태 초기화 =====
+function resetState() {
+    typeScores.alone = 0;
+    typeScores.couple = 0;
+    typeScores.family = 0;
+    currentIndex = 0;
+}
 
-// 5. 현재 질문 렌더링 함수
+// ===== 시작 화면 보여주기 =====
+function showIntro() {
+    resetState();
+
+    mainTitle.textContent = "연말 성향 테스트";
+
+    introBox.classList.remove("hidden");
+
+    subtitle.classList.add("hidden");
+    progressEl.classList.add("hidden");
+    questionBox.classList.add("hidden");
+    resultBox.classList.add("hidden");
+}
+
+// ===== 질문 화면으로 진입 =====
+function startTest() {
+    introBox.classList.add("hidden");
+
+    subtitle.classList.remove("hidden");
+    progressEl.classList.remove("hidden");
+    questionBox.classList.remove("hidden");
+    resultBox.classList.add("hidden");
+
+    renderQuestion();
+}
+
+// 초기 진입 시: 시작 화면
+showIntro();
+
+// 시작하기 버튼 클릭
+startBtn.addEventListener("click", startTest);
+
+// 다시하기 버튼 클릭 → 시작 화면으로
+restartBtn.addEventListener("click", showIntro);
+
+// ===== 현재 질문 렌더링 함수 =====
 function renderQuestion() {
     // 모든 질문을 다 답했으면 결과 화면으로
     if (currentIndex >= questions.length) {
@@ -170,7 +214,7 @@ function renderQuestion() {
     mainTitle.textContent = "연말 성향 테스트";
 }
 
-// 6. 선택지를 클릭했을 때 로직
+// ===== 선택지를 클릭했을 때 로직 =====
 function handleOptionClick(selectedType) {
     // 선택된 유형 점수 +1
     typeScores[selectedType] += 1;
@@ -180,7 +224,7 @@ function handleOptionClick(selectedType) {
     renderQuestion();
 }
 
-// 7. 최종 결과 계산 + 출력
+// ===== 최종 결과 계산 + 출력 =====
 function showResult() {
     const finalType = getFinalType(typeScores);
     const finalResult = typeResults[finalType];
@@ -235,7 +279,7 @@ function showResult() {
     mainTitle.textContent = "꿀차맘대로 테스트 결과!";
 }
 
-// 8. 점수가 가장 높은 유형 찾기 (순수 로직)
+// ===== 점수가 가장 높은 유형 찾기 (순수 로직) =====
 function getFinalType(scores) {
     let maxType = "alone";
     let maxScore = scores.alone;

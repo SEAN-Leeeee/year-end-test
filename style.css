@@ -79,7 +79,7 @@ body::after {
     pointer-events: none;
 }
 
-/* ===== 타이틀 & 서브타이틀 ===== */
+/* ===== 타이틀 ===== */
 
 #main-title {
     margin: 0 0 8px;
@@ -90,15 +90,50 @@ body::after {
     font-weight: 700; /* 제목이 가장 굵고 큼 */
 }
 
+/* ===== 시작 화면 ===== */
+
+.intro-box {
+    text-align: center;
+    margin: 24px 0 8px;
+}
+
+.intro-text {
+    margin: 0 0 20px;
+    font-size: 18px;
+    color: #6c5a1c;
+    line-height: 1.6;
+}
+
+.start-btn {
+    padding: 12px 32px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 214, 120, 0.9);
+    background: linear-gradient(135deg, #fffaf0, #ffefc4);
+    color: #5d4b1f;
+    cursor: pointer;
+    transition:
+            transform 0.18s ease-out,
+            box-shadow 0.18s ease-out,
+            background 0.18s ease-out;
+}
+
+.start-btn:hover {
+    transform: translateY(-2px);
+    background: #FFE9A8;
+    box-shadow: 0 8px 18px rgba(255, 198, 100, 0.45);
+}
+
+/* ===== 질문 설명 & 진행도 ===== */
+
 .subtitle {
     text-align: center;
-    margin: 0 0 20px;
+    margin: 8px 0 16px;
     color: #8f7c2b;
     font-size: 17px;
     font-weight: 600;
 }
-
-/* ===== 진행도 ===== */
 
 .progress {
     text-align: center;
@@ -198,7 +233,7 @@ body::after {
     margin: 6px 0;
 }
 
-/* ===== 결과 이미지 (최대 2장) ===== */
+/* ===== 결과 PNG (박스 없이 이미지만) ===== */
 
 .result-image-box {
     display: flex;
@@ -212,9 +247,10 @@ body::after {
     max-width: 100%;
     width: 220px;
     height: auto;
-    border-radius: 18px;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
-    object-fit: cover;
+    /* 박스 느낌 제거: 모서리, 그림자 제거 */
+    border-radius: 0;
+    box-shadow: none;
+    object-fit: contain;
 }
 
 /* ===== 구매 버튼 (노란 글라스 카드) ===== */
@@ -255,6 +291,37 @@ body::after {
     box-shadow: none;
 }
 
+/* ===== 오른쪽 아래 다시하기 버튼 (글라스 박스) ===== */
+
+.restart-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.restart-btn {
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    color: #5a4b1f;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    transition:
+            transform 0.18s ease-out,
+            box-shadow 0.18s ease-out,
+            background 0.18s ease-out;
+}
+
+.restart-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+    background: rgba(255, 255, 255, 0.9);
+}
+
 /* ===== 숨김 ===== */
 
 .hidden {
@@ -280,6 +347,15 @@ body::after {
 
     #main-title {
         font-size: 26px;
+    }
+
+    .intro-text {
+        font-size: 16px;
+    }
+
+    .start-btn {
+        font-size: 16px;
+        padding: 10px 26px;
     }
 
     .subtitle {
