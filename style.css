@@ -198,17 +198,19 @@ body::after {
     margin: 6px 0;
 }
 
-/* ===== 결과 이미지 ===== */
+/* ===== 결과 이미지 (최대 2장) ===== */
 
 .result-image-box {
     display: flex;
     justify-content: center;
+    gap: 16px;
     margin-bottom: 24px; /* 이미지와 버튼 사이 간격 */
+    flex-wrap: wrap;
 }
 
 .result-image {
     max-width: 100%;
-    width: 260px;
+    width: 220px;
     height: auto;
     border-radius: 18px;
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
@@ -326,7 +328,7 @@ body::after {
     }
 
     .result-image {
-        width: 220px;
+        width: 180px;
     }
 
     .retry-btn {
