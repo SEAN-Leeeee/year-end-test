@@ -163,16 +163,20 @@ body::after {
     box-shadow: 0 8px 26px rgba(255, 200, 120, 0.35);
 }
 
-/* 질문 이미지 */
-
+/* 질문 이미지 영역: 고정 높이로 카드 흔들림 방지 */
 .question-image-wrapper {
-    text-align: center;
+    height: 260px;                  /* ✅ 모든 질문에서 동일한 높이 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 14px;
 }
 
+/* 이미지 자체는 박스 안에만 맞게 */
 .question-image {
     max-width: 100%;
-    width: 220px;
+    max-height: 240px;              /* ✅ 세로도 일정 범위 안 */
+    width: auto;
     height: auto;
     object-fit: contain;
 }
@@ -405,11 +409,13 @@ body::after {
         font-size: 19px;
         margin-bottom: 12px;
     }
-
-    .question-image {
-        width: 200px;
+    .question-image-wrapper {
+        height: 220px;          /* 모바일에서는 조금 더 낮게 */
     }
 
+    .question-image {
+        max-height: 200px;
+    }
     .option-btn {
         font-size: 16px;
         padding: 12px 14px;
