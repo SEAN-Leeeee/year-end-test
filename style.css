@@ -166,21 +166,53 @@ body::after {
 /* ===== 결과 화면 ===== */
 
 .result {
-    margin-top: 26px;
+    margin-top: 30px;
 }
 
+/* 결과 제목 */
 .result h2 {
     font-size: 24px;
-    margin: 0 0 8px;
+    margin: 0 0 26px;  /* 제목 아래 여유 간격 */
     color: #5a4b00;
     font-weight: 700;
 }
 
-.result p {
-    margin: 6px 0;
+/* 소제목(설명) */
+#result-desc {
+    margin: 0 0 26px;  /* 설명과 추천 사이 간격 */
     color: #7a6a23;
     font-size: 18px;
     font-weight: 600;
+}
+
+/* 추천 문장 */
+#result-product {
+    margin: 0 0 26px;  /* 추천과 이미지/버튼 사이 간격 */
+    color: #7a6a23;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* 기타 result 내 p 기본값 */
+.result p {
+    margin: 6px 0;
+}
+
+/* ===== 결과 이미지 ===== */
+
+.result-image-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px; /* 이미지와 버튼 사이 간격 */
+}
+
+.result-image {
+    max-width: 100%;
+    width: 260px;
+    height: auto;
+    border-radius: 18px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+    object-fit: cover;
 }
 
 /* ===== 구매 버튼 (노란 글라스 카드) ===== */
@@ -189,7 +221,7 @@ body::after {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-top: 18px;
+    margin-top: 4px;
 }
 
 .retry-btn {
@@ -230,7 +262,6 @@ body::after {
 /* ===== 모바일 최적화 ===== */
 
 @media (max-width: 480px) {
-    /* 모바일에서는 위에서부터 자연스럽게 쌓이게 */
     body {
         display: block;
         min-height: 100vh;
@@ -242,7 +273,7 @@ body::after {
         margin: 18px auto 24px;
         padding: 22px 16px 20px;
         border-radius: 18px;
-        min-height: auto; /* 내용만큼 높이 */
+        min-height: auto;
     }
 
     #main-title {
@@ -276,11 +307,26 @@ body::after {
     }
 
     .result {
-        margin-top: 22px;
+        margin-top: 24px;
     }
 
-    .result p {
+    .result h2 {
+        font-size: 22px;
+        margin-bottom: 22px;
+    }
+
+    #result-desc {
         font-size: 16px;
+        margin-bottom: 22px;
+    }
+
+    #result-product {
+        font-size: 16px;
+        margin-bottom: 22px;
+    }
+
+    .result-image {
+        width: 220px;
     }
 
     .retry-btn {

@@ -63,7 +63,7 @@ const typeScores = {
     family: 0
 };
 
-// 3. 유형별 결과 + 상품 정보
+// 3. 유형별 결과 + 상품 + 이미지 정보
 const typeResults = {
     alone: {
         title: "혼자 있는 시간을 사랑하는 꿀단지!",
@@ -72,7 +72,9 @@ const typeResults = {
         url1: "https://m.smartstore.naver.com/ggulcha/products/11227797705",
         url1Text: "나의한해지도 구매하러 가기",
         url2: null,
-        url2Text: null
+        url2Text: null,
+        image: "img/result-alone.png",
+        imageAlt: "나의한해지도를 들고 있는 사람들"
     },
     couple: {
         title: "연인과의 순간을 중시하는 꿀단지!",
@@ -81,7 +83,9 @@ const typeResults = {
         url1: "https://m.smartstore.naver.com/ggulcha/products/11227797705", // 나의한해지도
         url1Text: "나의한해지도 구매하러 가기",
         url2: "https://m.smartstore.naver.com/ggulcha/products/11563138852", // 커플대화키트
-        url2Text: "커플대화키트 구매하러 가기"
+        url2Text: "커플대화키트 구매하러 가기",
+        image: "img/result-couple.png",
+        imageAlt: "껄차 경찰서 컨셉 패키지"
     },
     family: {
         title: "가족과 함께하는 시간을 소중히 여기는 꿀단지!",
@@ -90,7 +94,9 @@ const typeResults = {
         url1: "https://m.smartstore.naver.com/ggulcha/products/11227797705", // 나의한해지도
         url1Text: "나의한해지도 구매하러 가기",
         url2: "https://m.smartstore.naver.com/ggulcha/products/11755222317", // 가족대화키트
-        url2Text: "가족대화키트 구매하러 가기"
+        url2Text: "가족대화키트 구매하러 가기",
+        image: "img/result-family.png",
+        imageAlt: "꿀단지 가족활동지"
     }
 };
 
@@ -104,6 +110,7 @@ const resultBox = document.getElementById("result");
 const resultTitle = document.getElementById("result-title");
 const resultDesc = document.getElementById("result-desc");
 const resultProduct = document.getElementById("result-product");
+const resultImage = document.getElementById("result-image");
 
 const buyBtn1 = document.getElementById("buy-btn-1");
 const buyBtn2 = document.getElementById("buy-btn-2");
@@ -193,6 +200,15 @@ function showResult() {
         buyBtn2.classList.remove("hidden");
     } else {
         buyBtn2.classList.add("hidden");
+    }
+
+    // 타입별 이미지 세팅
+    if (finalResult.image) {
+        resultImage.src = finalResult.image;
+        resultImage.alt = finalResult.imageAlt || finalResult.title;
+        resultImage.classList.remove("hidden");
+    } else {
+        resultImage.classList.add("hidden");
     }
 
     // 결과 화면 상태 세팅
