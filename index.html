@@ -21,9 +21,11 @@
 	<!-- ✨ 시작 화면 -->
 	<div id="intro-box" class="intro-box">
 		<p class="intro-text">
-			연말 선물을 누구에게 주고싶을까요?<br>
+			연말 선물을 누구에게 주고 싶을까요?<br>
 			나의 마음을 알아보는 테스트
 		</p>
+		<!-- 시작 페이지 이미지 -->
+		<img src="img/makedecision.png" alt="선물 선택 일러스트" class="intro-image">
 		<button id="start-btn" class="start-btn">시작하기</button>
 	</div>
 
@@ -33,6 +35,9 @@
 
 	<!-- 질문/선택지가 들어갈 카드 -->
 	<div id="question-box" class="question-card hidden">
+		<div class="question-image-wrapper">
+			<img id="question-image" class="question-image hidden" alt="질문 관련 이미지">
+		</div>
 		<h2 id="question-title"></h2>
 		<div id="options" class="options"></div>
 	</div>
@@ -43,7 +48,7 @@
 		<p id="result-desc"></p>
 		<p id="result-product"></p>
 
-		<!-- 타입별 PNG (박스 스타일 없이 그대로) -->
+		<!-- 타입별 PNG (박스 없이 이미지만) -->
 		<div class="result-image-box">
 			<img id="result-image-1" class="result-image hidden" alt="추천 상품 이미지 1">
 			<img id="result-image-2" class="result-image hidden" alt="추천 상품 이미지 2">

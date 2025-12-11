@@ -98,10 +98,19 @@ body::after {
 }
 
 .intro-text {
-    margin: 0 0 20px;
+    margin: 0 0 16px;
     font-size: 18px;
     color: #6c5a1c;
     line-height: 1.6;
+}
+
+.intro-image {
+    display: block;
+    margin: 0 auto 18px;
+    max-width: 100%;
+    width: 220px;
+    height: auto;
+    object-fit: contain;
 }
 
 .start-btn {
@@ -152,6 +161,20 @@ body::after {
     background: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(255, 236, 185, 0.9);
     box-shadow: 0 8px 26px rgba(255, 200, 120, 0.35);
+}
+
+/* 질문 이미지 */
+
+.question-image-wrapper {
+    text-align: center;
+    margin-bottom: 14px;
+}
+
+.question-image {
+    max-width: 100%;
+    width: 220px;
+    height: auto;
+    object-fit: contain;
 }
 
 #question-title {
@@ -247,7 +270,6 @@ body::after {
     max-width: 100%;
     width: 220px;
     height: auto;
-    /* 박스 느낌 제거: 모서리, 그림자 제거 */
     border-radius: 0;
     box-shadow: none;
     object-fit: contain;
@@ -353,6 +375,11 @@ body::after {
         font-size: 16px;
     }
 
+    .intro-image {
+        width: 200px;
+        margin-bottom: 16px;
+    }
+
     .start-btn {
         font-size: 16px;
         padding: 10px 26px;
@@ -376,6 +403,10 @@ body::after {
     #question-title {
         font-size: 19px;
         margin-bottom: 12px;
+    }
+
+    .question-image {
+        width: 200px;
     }
 
     .option-btn {

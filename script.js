@@ -3,6 +3,7 @@ const questions = [
     {
         id: 1,
         text: "연말이라고 하면 가장 떠오르는 장면은?",
+        image: "img/pig2.png",              // 1번 이미지
         options: [
             { label: "조용한 방에서 혼자 영화 보기", type: "alone" },
             { label: "연인과 함께 야경 보며 산책하기", type: "couple" },
@@ -12,6 +13,7 @@ const questions = [
     {
         id: 2,
         text: "연말에 가장 중요하게 느껴지는 것은?",
+        image: "img/ggulwoo.png",           // 2번 이미지
         options: [
             { label: "올해를 혼자 조용히 정리하는 시간", type: "alone" },
             { label: "사랑하는 사람과의 추억 만들기", type: "couple" },
@@ -21,6 +23,7 @@ const questions = [
     {
         id: 3,
         text: "올해 마지막 날, 가장 하고 싶은 일은?",
+        image: "img/simgak.png",            // 3번 이미지
         options: [
             { label: "혼자 카페에서 다이어리 쓰기", type: "alone" },
             { label: "연인과 함께 작은 파티 즐기기", type: "couple" },
@@ -30,6 +33,7 @@ const questions = [
     {
         id: 4,
         text: "연말에 사진을 찍는다면 누구와 가장 많이 찍을 것 같나요?",
+        image: "img/takeapic.png",          // 4번 이미지
         options: [
             { label: "셀카로 나만의 기록 남기기", type: "alone" },
             { label: "연인과 꽁냥꽁냥 커플샷 남기기", type: "couple" },
@@ -39,6 +43,7 @@ const questions = [
     {
         id: 5,
         text: "연말 선물을 떠올리면 가장 먼저 생각나는 것은?",
+        image: "img/present.png",           // 5번 이미지
         options: [
             { label: "나에게 주는 작은 선물", type: "alone" },
             { label: "연인에게 줄 깜짝 선물", type: "couple" },
@@ -48,6 +53,7 @@ const questions = [
     {
         id: 6,
         text: "연말에 갑자기 하루 휴가가 생겼다면?",
+        image: "img/ggulpig.png",           // 6번 이미지
         options: [
             { label: "집에서 혼자 푹 쉬고 혼밥하기", type: "alone" },
             { label: "연인과 근교로 짧은 여행 떠나기", type: "couple" },
@@ -108,6 +114,7 @@ const typeResults = {
 
 // 4. DOM 요소 참조
 const questionTitleEl = document.getElementById("question-title");
+const questionImageEl = document.getElementById("question-image");
 const optionsEl = document.getElementById("options");
 const progressEl = document.getElementById("progress");
 const subtitle = document.getElementById("subtitle");
@@ -189,6 +196,14 @@ function renderQuestion() {
 
     // 질문 텍스트
     questionTitleEl.textContent = "Q" + (currentIndex + 1) + ". " + currentQuestion.text;
+
+    // 질문 이미지 세팅
+    if (currentQuestion.image) {
+        questionImageEl.src = currentQuestion.image;
+        questionImageEl.classList.remove("hidden");
+    } else {
+        questionImageEl.classList.add("hidden");
+    }
 
     // 이전 옵션들 비우기
     optionsEl.innerHTML = "";
