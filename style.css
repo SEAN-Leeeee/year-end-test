@@ -108,7 +108,7 @@ body::after {
     display: block;
     margin: 0 auto 18px;
     max-width: 100%;
-    width: 220px;
+    width: 600px;
     height: auto;
     object-fit: contain;
 }
@@ -376,7 +376,8 @@ body::after {
     }
 
     .intro-image {
-        width: 200px;
+        width: 360px;        /* 모바일에서도 확실히 크게 */
+        max-width: 100%;     /* 화면보다 안 넘치게 */
         margin-bottom: 16px;
     }
 
